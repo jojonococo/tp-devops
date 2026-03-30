@@ -10,3 +10,4 @@ services:
 
   redis:
     image: redis:7
+
