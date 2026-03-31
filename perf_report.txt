@@ -1,0 +1,45 @@
+nano perf_report.txt
+```
+
+Contenu :
+```
+=== RAPPORT DE PERFORMANCE ===
+
+VERSION v1.0 - "Hello DevOps"
+Requests/sec : 215
+Average      : 44ms
+Fastest      : 11ms
+Slowest      : 89ms
+Erreurs      : 0/100
+
+VERSION v1.1 - "Hello DevOps Version 2"
+Requests/sec : 144
+Average      : 67ms
+Fastest      : 12ms
+Slowest      : 117ms
+Erreurs      : 0/100
+
+VERSION v1.2 - "Hello DevOps slow version" (avec sleep 0.1)
+Requests/sec : 89
+Average      : 108ms
+Fastest      : 102ms
+Slowest      : 128ms
+Erreurs      : 0/100
+
+=== ANALYSE ===
+
+1. Quelle version est la plus rapide ?
+   → v1.0 : 215 req/sec et 44ms de moyenne
+
+2. Quelle version est la plus lente ?
+   → v1.2 : seulement 89 req/sec et 108ms de moyenne
+
+3. Pourquoi v1.2 est lente ?
+   → time.sleep(0.1) force Flask à attendre 100ms
+     avant de répondre à chaque requête.
+     En prod, ça simule une requête BDD lente
+     ou un appel API externe qui prend du temps.
+
+4. Quelle version déployer en production ?
+   → v1.0 : la plus rapide, stable, sans code inutile.
+     v1.2 est 2.4x plus lente que v1.0 à cause du sleep.
